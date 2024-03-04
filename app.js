@@ -4,18 +4,13 @@ const app = express()
 const admin = require("firebase-admin")
 const router = require("./routes")
 const serviceAccount = require("./serviceAccountKey.json");
-var corsOptions = {
-  origin: 'https://poll-nodeserver.onrender.com'
-}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
-app.use(express.json(), cors(corsOptions))
+app.use(express.json(), cors())
+
 app.use(express.urlencoded({extended: false}))
 
 app.use(router)

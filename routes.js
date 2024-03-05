@@ -1,8 +1,14 @@
 const express = require("express")
-const admin = require("firebase-admin/firestore")
+const admin = require("firebase-admin")
 const router = express.Router()
 
 //Routes
+
+router.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://supervisao-e-sinergia.vercel.app");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 router.get('/enquets', async (req, res) => {
 

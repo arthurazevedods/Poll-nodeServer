@@ -13,7 +13,7 @@ router.use((req, res, next) => {
 router.get('/enquets', async (req, res) => {
 
     try {
-        const result = await admin.getFirestore().collection('wishes').get()
+        const result = await admin.firestore().collection('wishes').get()
         const list = result.docs.map(item => ({
             ...item.data(),
             uid: item.id
@@ -28,7 +28,7 @@ router.get('/enquets', async (req, res) => {
 router.get('/enquets/:id', async (req, res) => {
     const id = req.params.id
     try {
-        const result = await admin.getFirestore().collection('wishes').doc(id).get()
+        const result = await admin.firestore().collection('wishes').doc(id).get()
 
         if (!result.exists) {
             return res.json("Documento não encontrado")
@@ -46,7 +46,7 @@ router.put('/enquets/:id', async (req, res) => {
     try {
         const id = req.params.id; // Adicione esta linha para extrair o ID do parâmetro
         console.log("api data" + req.body.like)
-        await admin.getFirestore().collection('wishes').doc(id).update({
+        await admin.firestore().collection('wishes').doc(id).update({
             votesLike: req.body.like,
             votesUnlike: req.body.unlike
         })

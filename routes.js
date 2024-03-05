@@ -44,19 +44,19 @@ router.get('/enquets/:id', async (req, res) => {
 
 router.put('/enquets/:id', async (req, res) => {
     try {
-        const id = req.params.id; // Adicione esta linha para extrair o ID do parâmetro
+        const id = req.params.id;
+        const { like, unlike } = req.body;
         console.log("api data" + req.body.like)
         await admin.firestore().collection('wishes').doc(id).update({
-            votesLike: req.body.like,
-            votesUnlike: req.body.unlike
-        })
+            votesLike: like,
+            votesUnlike: unlike
+        });
 
     } catch (error) {
         console.error("Erro ao atualizar enquete:", error);
         return res.status(500).json({ error: "Erro na API" });
     }
 })
-
 
 
 module.exports = router
